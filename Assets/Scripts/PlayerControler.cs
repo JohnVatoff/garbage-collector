@@ -4,19 +4,42 @@ using UnityEngine;
 
 public class PlayerControler : MonoBehaviour {
 
-    Rigidbody2D player;
+    
+    Rigidbody2D rb;
+    float speed = 0;
+
 
 	// Use this for initialization
 	void Start () {
-        player = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKeyDown(KeyCode.A))
+
+        MovePlayer(speed);
+        if (Input.GetKey(KeyCode.LeftArrow))
         {
-            player.AddForce(transform.forward * 100);
-            Debug.Log("add force");
+            speed = -1;
         }
-	}
+        if (Input.GetKeyUp(KeyCode.LeftArrow))
+        {
+            speed = 0;
+        }
+
+        if (Input.GetKey(KeyCode.RightArrow))
+        {
+            speed = 1;
+        }
+        if (Input.GetKeyUp(KeyCode.RightArrow))
+        {
+            speed = 0;
+        }
+    }
+
+    void MovePlayer(float playerSpeed)
+    {
+        rb.velocity = new Vector2(speed, rb.velocity.y);
+    }
+
 }
