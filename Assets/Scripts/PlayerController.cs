@@ -76,7 +76,6 @@ public class PlayerController : MonoBehaviour {
             rb.position = new Vector2(-10.14f, -3.0f);
         else
             rb.position = new Vector2(10.14f, -3.0f);
-
     }
 
 }

@@ -7,12 +7,14 @@ public class WaveController : MonoBehaviour {
     bool change;
 
 	// Use this for initialization
-	void Start () {
+	void Start ()
+    {
         rb = GetComponent<Rigidbody2D>();
-;	}
+    }
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
         if (change)
         {
             waveAmplitude += 1 * Time.deltaTime;
