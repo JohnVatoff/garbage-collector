@@ -34,5 +34,10 @@ public class TrashController : MonoBehaviour {
             gmScript.PickUp(points);
             Destroy(this.gameObject);
         }
+        if (coll.gameObject.tag == "Player")
+        {
+            gmScript.TakeDammage(points);
+            Destroy(this.gameObject);
+        }
     }
 }

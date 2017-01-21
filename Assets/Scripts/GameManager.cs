@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 {
     //Player
     public static GameObject player;
+    public static GameObject helmet;
     private GameObject trashRondom;
     public GameObject perlConch; //Bonus 10%
     public GameObject perlShell;
@@ -41,13 +42,27 @@ public class GameManager : MonoBehaviour
     public AudioClip pickupSound;
     public AudioClip explosionSound;
     public AudioClip damageSound;
+    public AudioClip bonusSound;
+    public AudioClip timeSound;
+    public AudioClip helmetSound;
 
     public Text pointsText;
     public Text timeText;
     static int points;
+    static bool isGameOver = false;
+    static bool isStunned = false;
+    static bool isHitted = false;
+    static bool isHelmProtected = false;
+    //Timers
     static float time = 300;
-    bool isGameOver = false;
     static float hyperStun = 0;
+    static float hitStun = 0;
+    static float helmetTime = 0;
+    static float bonusTime = 0;          
+
+
+
+
 
 
     System.Random rnd;
@@ -60,6 +75,8 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        helmet = GameObject.FindGameObjectWithTag("Helmet");
+
         AddItemsToList();
         points = 0;
         source = GetComponent<AudioSource>();
@@ -67,6 +84,7 @@ public class GameManager : MonoBehaviour
         //canvas.GetComponentInChildren(Text).GetComponent();
         //canvas.GetComponent<UnityEngine.UI.Text>().text = "alabala";
         //Instantiate(player, new Vector2(0, 0), Quaternion.identity);
+        helmet.SetActive(false);
 
     }
 
@@ -80,9 +98,46 @@ public class GameManager : MonoBehaviour
             if (respawn < 0)
             {
 
-                Instantiate(RandomGameObjectTrash(), new Vector2(Random.Range(-2, 6), 2), Quaternion.identity);
+                Instantiate(RandomGameObjectTrash(), new Vector2(Random.Range(-8, 8), 2), Quaternion.identity);
                 respawn = Random.Range(2, 6);
+                if (bonusTime > 0)
+                {
+                    respawn = respawn / 4;
+                }
             }
+        }
+        if (hitStun > 0)
+        {
+            hitStun -= Time.deltaTime;
+        }
+        else if (isHitted)
+        {
+            player.GetComponent<PlayerController>().ReleaseDammage();
+            isHitted = false;
+        }
+        if (bonusTime > 0)
+        {
+            bonusTime -= Time.deltaTime;
+        }
+        if (helmetTime > 0)
+        {
+            helmetTime -= Time.deltaTime;
+        }
+        else if (isHelmProtected)
+        {
+            helmet.SetActive(false);
+            isHelmProtected = false;
+        }
+
+        if (hyperStun > 0)
+        {
+            hyperStun -= Time.deltaTime;
+        }
+        else if (isStunned)
+        {
+            player.SetActive(true);
+            player.GetComponent<PlayerController>().speed = 0;
+            isStunned = false;
         }
     }
 
@@ -94,41 +149,71 @@ public class GameManager : MonoBehaviour
         string seconds = (time % 60).ToString("00");
 
         timeText.text = "Time: " + minutes + ":"+ seconds;
-
-        if (hyperStun > 0)
-            hyperStun -= Time.deltaTime;
-        else
-            player.SetActive(true);
     }
 
     public void PickUp(int p)
     {
-        Debug.Log(points.ToString());
         points+=p;
         source.PlayOneShot(pickupSound, 1);
     }
 
-    public void AddTime(float time)
+    public void AddTime()
     {
+        time += 20;
+        source.PlayOneShot(timeSound, 1);
+    }
 
+    public void BonusTime()
+    {
+        bonusTime += 20;
+        source.PlayOneShot(bonusSound, 1);
+    }
+
+    public void AddHelmet()
+    {
+        isHelmProtected = true;
+        Debug.Log(helmetTime);
+        helmetTime += 20;
+        helmet.SetActive(true);
+        source.PlayOneShot(helmetSound, 1);
+    }
+
+    public void TakeDammage(int p)
+    {
+        if (helmetTime > 0)
+        {
+            points += p;
+            source.PlayOneShot(pickupSound, 1);
+        }
+        else
+        {
+            player.GetComponent<PlayerController>().GetDammage();
+            isHitted = true;
+            hitStun = 1;
+            source.PlayOneShot(damageSound, 1);
+        }
+        
     }
 
     public void GroundExplosion(float x, float y)
     {
-        Debug.Log(x);
-        Debug.Log(y);
         Instantiate(explosion, new Vector2(x, y+1), Quaternion.identity);
         source.PlayOneShot(explosionSound, 0.5f);
     }
 
     public void PlayerExplosion()
     {
-        Debug.Log("Player explosion");
+        hyperStun = 10f;
         Instantiate(explosion, new Vector2(player.transform.localPosition.x, player.transform.localPosition.y), Quaternion.identity);
         source.PlayOneShot(explosionSound, 0.5f);
-        player.SetActive(false);
-        hyperStun = 10;
         Instantiate(deadPlayer, new Vector3(player.transform.localPosition.x, player.transform.localPosition.y-1, 1), Quaternion.identity);
+
+        if (helmetTime <= 0.5f)
+        {
+            player.SetActive(false);
+            hyperStun = 10f;
+            isStunned = true;
+        }
     }
 
     void AddItemsToList()
@@ -163,7 +248,7 @@ public class GameManager : MonoBehaviour
         {
             trash = whale;
         }
-        else if (uRand <= 15)
+        else if (uRand <= 99)
         {
             randomIndex = rnd.Next(trashItems10persent.Count);
             trash = trashItems10persent[randomIndex];

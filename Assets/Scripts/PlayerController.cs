@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour {
     public float speed = 0;
     Animator anim;
     double speedLimit = 10;
+    bool stun = false;
 
 
     // Use this for initialization
@@ -19,28 +20,35 @@ public class PlayerController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
-        if (Input.GetKey(KeyCode.LeftArrow))
+        if (!stun)
         {
-            if(speed > -speedLimit)
-                speed += -5 * Time.deltaTime;
+            if (Input.GetKey(KeyCode.LeftArrow))
+            {
+                if (speed > -speedLimit)
+                    speed += -5 * Time.deltaTime;
+            }
+            if (Input.GetKeyUp(KeyCode.LeftArrow))
+            {
+                speed = 0;
+            }
+
+            if (Input.GetKey(KeyCode.RightArrow))
+            {
+                if (speed < speedLimit)
+                    speed += 5 * Time.deltaTime;
+            }
+            if (Input.GetKeyUp(KeyCode.RightArrow))
+            {
+                speed = 0;
+            }
+
+            MovePlayer(speed);
         }
-        if (Input.GetKeyUp(KeyCode.LeftArrow))
+        else
         {
             speed = 0;
         }
 
-        if (Input.GetKey(KeyCode.RightArrow))
-        {
-            if (speed < speedLimit)
-                speed += 5 * Time.deltaTime;
-        }
-        if (Input.GetKeyUp(KeyCode.RightArrow))
-        {
-            speed = 0;
-        }
-
-        MovePlayer(speed);
     }
 
     void MovePlayer(float playerSpeed)
@@ -78,7 +86,16 @@ public class PlayerController : MonoBehaviour {
             rb.position = new Vector2(-6f, -3.0f);
         else
             rb.position = new Vector2(6f, -3.0f);
-        Debug.Log("TeleportToPosition" + rb.position);
     }
 
+    public void GetDammage()
+    {
+        stun = true;
+        anim.SetInteger("State", 3);
+    }
+    public void ReleaseDammage()
+    {
+        stun = false;
+        anim.SetInteger("State", 0);
+    }
 }

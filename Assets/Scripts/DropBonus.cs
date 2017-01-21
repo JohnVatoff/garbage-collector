@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MineController : MonoBehaviour {
+public class DropBonus : MonoBehaviour {
 
     public GameObject gm;
     GameManager gmScript;
@@ -17,26 +17,22 @@ public class MineController : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update () {
-		
-	}
+    void Update()
+    {
+
+    }
 
     void OnTriggerEnter2D(Collider2D coll)
     {
         if (coll.gameObject.tag == "Ground")
         {
-            gmScript.GroundExplosion(transform.localPosition.x, transform.localPosition.y);
             Destroy(this.gameObject);
         }
-        if (coll.gameObject.tag == "Bag")
+        if (coll.gameObject.tag == "Bag" || coll.gameObject.tag == "Player")
         {
-            gmScript.PlayerExplosion();
+            gmScript.BonusTime();
             Destroy(this.gameObject);
         }
-        if (coll.gameObject.tag == "Player")
-        {
-            gmScript.PlayerExplosion();
-            Destroy(this.gameObject);
-        }
+
     }
 }
