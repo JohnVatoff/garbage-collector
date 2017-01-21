@@ -221,13 +221,13 @@ public class GameManager : MonoBehaviour
         trashItems10persent.Add(perlConch);
         trashItems10persent.Add(perlShell);
         trashItems10persent.Add(perlSnail);
-        trashItems10persent.Add(trashMetalHead);
-        trashItems10persent.Add(trashRobotHead);
 
         trashItems25persent.Add(trashInk);
         trashItems25persent.Add(trashPoison);
         trashItems25persent.Add(trashBottle);
         trashItems25persent.Add(trashPvcBottle);
+        trashItems25persent.Add(trashMetalHead);
+        trashItems25persent.Add(trashRobotHead);
 
         trashItems60persent.Add(trashBanana);
         trashItems60persent.Add(trashApple);
@@ -248,7 +248,7 @@ public class GameManager : MonoBehaviour
         {
             trash = whale;
         }
-        else if (uRand <= 99)
+        else if (uRand <= 15)
         {
             randomIndex = rnd.Next(trashItems10persent.Count);
             trash = trashItems10persent[randomIndex];
