@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     //Player
-    public GameObject player;
+    public static GameObject player;
     private GameObject trashRondom;
     public GameObject perlConch; //Bonus 10%
     public GameObject perlShell;
@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject whale; //Bonus 5%
     public GameObject explosion;
+    public GameObject deadPlayer;
 
     public List<GameObject> trashItems10persent = new List<GameObject>();
     public List<GameObject> trashItems25persent = new List<GameObject>();
@@ -46,6 +47,7 @@ public class GameManager : MonoBehaviour
     static int points;
     static float time = 300;
     bool isGameOver = false;
+    static float hyperStun = 0;
 
 
     System.Random rnd;
@@ -57,14 +59,14 @@ public class GameManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
+        player = GameObject.FindGameObjectWithTag("Player");
         AddItemsToList();
         points = 0;
         source = GetComponent<AudioSource>();
         //canvas.Find("ObjectName");
         //canvas.GetComponentInChildren(Text).GetComponent();
         //canvas.GetComponent<UnityEngine.UI.Text>().text = "alabala";
-
+        //Instantiate(player, new Vector2(0, 0), Quaternion.identity);
 
     }
 
@@ -92,6 +94,11 @@ public class GameManager : MonoBehaviour
         string seconds = (time % 60).ToString("00");
 
         timeText.text = "Time: " + minutes + ":"+ seconds;
+
+        if (hyperStun > 0)
+            hyperStun -= Time.deltaTime;
+        else
+            player.SetActive(true);
     }
 
     public void PickUp(int p)
@@ -117,8 +124,11 @@ public class GameManager : MonoBehaviour
     public void PlayerExplosion()
     {
         Debug.Log("Player explosion");
-        Instantiate(explosion, new Vector2(player.transform.localPosition.x, player.transform.localPosition.y + 1), Quaternion.identity);
+        Instantiate(explosion, new Vector2(player.transform.localPosition.x, player.transform.localPosition.y), Quaternion.identity);
         source.PlayOneShot(explosionSound, 0.5f);
+        player.SetActive(false);
+        hyperStun = 10;
+        Instantiate(deadPlayer, new Vector3(player.transform.localPosition.x, player.transform.localPosition.y-1, 1), Quaternion.identity);
     }
 
     void AddItemsToList()
