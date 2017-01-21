@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: be0d0651fb387134e834f19a04864b89
+timeCreated: 1485007073
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Vitamin
+  fontNames:
+  - Vitamin
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

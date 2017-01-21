@@ -178,7 +178,6 @@ public class GameManager : MonoBehaviour
             randomIndex = rnd.Next(trashItems60persent.Count);
             trash = trashItems60persent[randomIndex];
         }
-        trash = mine;
         return trash;
     }
 }

@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 5f16188aab933374da03f39f5ee9f108
+timeCreated: 1485000636
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Afrika Safari Rebuild St
+  fontNames:
+  - Afrika Safari Rebuild St
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

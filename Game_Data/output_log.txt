@@ -19,7 +19,7 @@ Platform assembly: C:\Users\ThinkPad\Desktop\garbage collector\garbage-collector
 Loading C:\Users\ThinkPad\Desktop\garbage collector\garbage-collector\Game_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll into Unity Child Domain
 Platform assembly: C:\Users\ThinkPad\Desktop\garbage collector\garbage-collector\Game_Data\Managed\UnityEngine.Analytics.dll (this message is harmless)
 Loading C:\Users\ThinkPad\Desktop\garbage collector\garbage-collector\Game_Data\Managed\UnityEngine.Analytics.dll into Unity Child Domain
-- Completed reload, in  0.145 seconds
+- Completed reload, in  0.046 seconds
 Platform assembly: C:\Users\ThinkPad\Desktop\garbage collector\garbage-collector\Game_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: C:\Users\ThinkPad\Desktop\garbage collector\garbage-collector\Game_Data\Managed\System.dll (this message is harmless)
 desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
@@ -27,6 +27,24 @@ desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
 XInput1_3.dll not found. Trying XInput9_1_0.dll instead...
 <RI> Input initialized.
 <RI> Initialized touch support.
-UnloadTime: 3.730425 ms
+UnloadTime: 3.722300 ms
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 4.723865 ms
+
+Unloading 5 unused Assets to reduce memory usage. Loaded Objects now: 353.
+Total: 0.375052 ms (FindLiveObjects: 0.036350 ms CreateObjectMapping: 0.023520 ms MarkObjects: 0.299785 ms  DeleteObjects: 0.014540 ms)
+
+Unloading 2 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.823661 ms
+
+Unloading 9 unused Assets to reduce memory usage. Loaded Objects now: 295.
+Total: 0.329293 ms (FindLiveObjects: 0.031646 ms CreateObjectMapping: 0.023093 ms MarkObjects: 0.259158 ms  DeleteObjects: 0.014967 ms)
+
+Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.581609 ms
+
+Unloading 6 unused Assets to reduce memory usage. Loaded Objects now: 516.
+Total: 0.374197 ms (FindLiveObjects: 0.043620 ms CreateObjectMapping: 0.035067 ms MarkObjects: 0.278402 ms  DeleteObjects: 0.016678 ms)
+
 Setting up 1 worker threads for Enlighten.
-  Thread -> id: 2218 -> priority: 1 
+  Thread -> id: 2b30 -> priority: 1 
