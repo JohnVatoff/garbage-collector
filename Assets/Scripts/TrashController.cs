@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class TrashController : MonoBehaviour {
 
+    public GameObject gm;
+    GameManager gmScript;
     Rigidbody2D rb;
-    public AudioClip sound;
-    private AudioSource source;
 
     // Use this for initialization
     void Start ()
     {
-        source = GetComponent<AudioSource>();
+        gmScript = gm.GetComponent<GameManager>();
         rb = GetComponent<Rigidbody2D>();
         rb.AddForce(new Vector2(0, 10), ForceMode2D.Impulse);
     }
@@ -25,9 +25,12 @@ public class TrashController : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D coll)
     {
         if (coll.gameObject.tag == "Ground")
+        {            
+            Destroy(this.gameObject);
+        }
+        if (coll.gameObject.tag == "Bag")
         {
-            Debug.Log("coll");
-            source.PlayOneShot(sound, 1);
+            gmScript.PickUp();
             Destroy(this.gameObject);
         }
     }
