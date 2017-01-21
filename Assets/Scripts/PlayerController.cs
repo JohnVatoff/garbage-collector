@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour {
     Rigidbody2D rb;
     public float speed = 0;
     Animator anim;
+    double speedLimit = 10;
 
 
     // Use this for initialization
@@ -21,8 +22,8 @@ public class PlayerController : MonoBehaviour {
 
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-
-            speed += -5 * Time.deltaTime;
+            if(speed > -speedLimit)
+                speed += -5 * Time.deltaTime;
         }
         if (Input.GetKeyUp(KeyCode.LeftArrow))
         {
@@ -31,7 +32,8 @@ public class PlayerController : MonoBehaviour {
 
         if (Input.GetKey(KeyCode.RightArrow))
         {
-            speed += 5 * Time.deltaTime;
+            if (speed < speedLimit)
+                speed += 5 * Time.deltaTime;
         }
         if (Input.GetKeyUp(KeyCode.RightArrow))
         {
@@ -62,7 +64,7 @@ public class PlayerController : MonoBehaviour {
 
     }
 
-    void OnCollisionEnter2D(Collision2D coll)
+    void OnTriggerEnter2D(Collider2D coll)
     {
         if (coll.gameObject.tag == "Teleport")
         {
@@ -73,9 +75,10 @@ public class PlayerController : MonoBehaviour {
     void TeleportToPosition()
     {
         if (rb.position.x > 0)
-            rb.position = new Vector2(-10.14f, -3.0f);
+            rb.position = new Vector2(-6f, -3.0f);
         else
-            rb.position = new Vector2(10.14f, -3.0f);
+            rb.position = new Vector2(6f, -3.0f);
+        Debug.Log("TeleportToPosition" + rb.position);
     }
 
 }
