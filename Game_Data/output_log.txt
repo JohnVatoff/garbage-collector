@@ -19,10 +19,14 @@ Platform assembly: C:\Users\ThinkPad\Desktop\garbage collector\garbage-collector
 Loading C:\Users\ThinkPad\Desktop\garbage collector\garbage-collector\Game_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll into Unity Child Domain
 Platform assembly: C:\Users\ThinkPad\Desktop\garbage collector\garbage-collector\Game_Data\Managed\UnityEngine.Analytics.dll (this message is harmless)
 Loading C:\Users\ThinkPad\Desktop\garbage collector\garbage-collector\Game_Data\Managed\UnityEngine.Analytics.dll into Unity Child Domain
-- Completed reload, in  0.037 seconds
+- Completed reload, in  0.145 seconds
 Platform assembly: C:\Users\ThinkPad\Desktop\garbage collector\garbage-collector\Game_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: C:\Users\ThinkPad\Desktop\garbage collector\garbage-collector\Game_Data\Managed\System.dll (this message is harmless)
 desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
 <RI> Initializing input.
 XInput1_3.dll not found. Trying XInput9_1_0.dll instead...
 <RI> Input initialized.
+<RI> Initialized touch support.
+UnloadTime: 3.730425 ms
+Setting up 1 worker threads for Enlighten.
+  Thread -> id: 2218 -> priority: 1 

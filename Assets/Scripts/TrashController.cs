@@ -5,10 +5,13 @@ using UnityEngine;
 public class TrashController : MonoBehaviour {
 
     Rigidbody2D rb;
+    public AudioClip sound;
+    private AudioSource source;
 
     // Use this for initialization
     void Start ()
     {
+        source = GetComponent<AudioSource>();
         rb = GetComponent<Rigidbody2D>();
         rb.AddForce(new Vector2(0, 10), ForceMode2D.Impulse);
     }
@@ -23,7 +26,9 @@ public class TrashController : MonoBehaviour {
     {
         if (coll.gameObject.tag == "Ground")
         {
-            Destroy(gameObject);
+            Debug.Log("coll");
+            source.PlayOneShot(sound, 1);
+            Destroy(this.gameObject);
         }
     }
 }

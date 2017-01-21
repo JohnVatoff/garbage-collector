@@ -62,7 +62,7 @@ public class PlayerController : MonoBehaviour {
 
     }
 
-    void OnTriggerEnter2D(Collider2D coll)
+    void OnCollisionEnter2D(Collision2D coll)
     {
         if (coll.gameObject.tag == "Teleport")
         {
