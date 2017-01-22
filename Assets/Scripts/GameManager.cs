@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public static GameObject player;
     public static GameObject helmet;
     public static GameObject gameMenu;
+
     private GameObject trashRondom;
     public GameObject perlConch; //Bonus 10%
     public GameObject perlShell;
@@ -50,6 +51,11 @@ public class GameManager : MonoBehaviour
 
     public Text pointsText;
     public Text timeText;
+
+    public Text helmetText;
+    public Text bonusText;
+
+
     static int points;
     static bool isGameOver = false;
     static bool isStunned = false;
@@ -99,6 +105,7 @@ public class GameManager : MonoBehaviour
             {
                 isPause = false;
                 gameMenu.SetActive(false);
+                player.GetComponent<PlayerController>().controlsAllowed = true;
             }
             else
             {
@@ -165,6 +172,7 @@ public class GameManager : MonoBehaviour
         {
             //show menu
             gameMenu.SetActive(true);
+            player.GetComponent<PlayerController>().controlsAllowed = false;
         }
     }
 
@@ -176,6 +184,11 @@ public class GameManager : MonoBehaviour
         string seconds = (time % 60).ToString("00");
 
         timeText.text = "Time: " + minutes + ":"+ seconds;
+
+        int helmtimeInt = (int)helmetTime;
+        helmetText.text = helmtimeInt.ToString();
+        int bonustimeInt = (int)bonusTime;
+        bonusText.text = bonustimeInt.ToString();
     }
 
     public void PickUp(int p)
@@ -200,7 +213,7 @@ public class GameManager : MonoBehaviour
     {
         isHelmProtected = true;
         Debug.Log(helmetTime);
-        helmetTime += 20;
+        helmetTime += 5;
         helmet.SetActive(true);
         source.PlayOneShot(helmetSound, 1);
     }
@@ -290,6 +303,7 @@ public class GameManager : MonoBehaviour
             randomIndex = rnd.Next(trashItems60persent.Count);
             trash = trashItems60persent[randomIndex];
         }
+        trash = perlSnail;
         return trash;
     }
 
@@ -310,6 +324,7 @@ public class GameManager : MonoBehaviour
         {
             isPause = false;
             gameMenu.SetActive(false);
+            player.GetComponent<PlayerController>().controlsAllowed = true;
         }
         else
         {

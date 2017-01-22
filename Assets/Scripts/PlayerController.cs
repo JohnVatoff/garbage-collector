@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour {
     Animator anim;
     double speedLimit = 10;
     bool stun = false;
+    public bool controlsAllowed = true;
 
 
     // Use this for initialization
@@ -20,7 +21,7 @@ public class PlayerController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (!stun)
+        if (!stun && controlsAllowed)
         {
             if (Input.GetKey(KeyCode.LeftArrow))
             {
