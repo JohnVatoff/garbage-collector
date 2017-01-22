@@ -284,7 +284,7 @@ public class GameManager : MonoBehaviour
 
         uRand = Random.Range(0, 100);
 
-        if (uRand < 5)
+        if (uRand < 3)
         {
             trash = whale;
         }
@@ -303,18 +303,22 @@ public class GameManager : MonoBehaviour
             randomIndex = rnd.Next(trashItems60persent.Count);
             trash = trashItems60persent[randomIndex];
         }
-        trash = perlSnail;
         return trash;
     }
 
     public void restartLevel()
     {
         time = 300;
-        SceneManager.LoadScene("LoadingScene");
+        points = 0;
+        isPause = false;
+        gameMenu.SetActive(false);
     }
 
     public void mainMenu()
     {
+        time = 300;
+        points = 0;
+        isPause = false;
         SceneManager.LoadScene("mainMenu");
     }
 
