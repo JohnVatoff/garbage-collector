@@ -83,9 +83,9 @@ public class PlayerController : MonoBehaviour {
     void TeleportToPosition()
     {
         if (rb.position.x > 0)
-            rb.position = new Vector2(-6f, -3.0f);
+            rb.position = new Vector2(-9.9f, -3.0f);
         else
-            rb.position = new Vector2(6f, -3.0f);
+            rb.position = new Vector2(9.9f, -3.0f);
     }
 
     public void GetDammage()

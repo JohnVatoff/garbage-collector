@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     //Player
     public static GameObject player;
     public static GameObject helmet;
+    public static GameObject gameMenu;
     private GameObject trashRondom;
     public GameObject perlConch; //Bonus 10%
     public GameObject perlShell;
@@ -53,6 +55,7 @@ public class GameManager : MonoBehaviour
     static bool isStunned = false;
     static bool isHitted = false;
     static bool isHelmProtected = false;
+    static bool isPause = false;
     //Timers
     static float time = 300;
     static float hyperStun = 0;
@@ -76,68 +79,92 @@ public class GameManager : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
         helmet = GameObject.FindGameObjectWithTag("Helmet");
+        gameMenu = GameObject.FindGameObjectWithTag("GameMenu");
 
         AddItemsToList();
         points = 0;
         source = GetComponent<AudioSource>();
-        //canvas.Find("ObjectName");
-        //canvas.GetComponentInChildren(Text).GetComponent();
-        //canvas.GetComponent<UnityEngine.UI.Text>().text = "alabala";
-        //Instantiate(player, new Vector2(0, 0), Quaternion.identity);
         helmet.SetActive(false);
+        gameMenu.SetActive(false);
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!isGameOver)
+        if (Input.GetKeyUp(KeyCode.M))
         {
-            time -= Time.deltaTime;
+            Debug.Log("Show Menu");
+            if(isPause)
+            {
+                isPause = false;
+                gameMenu.SetActive(false);
+            }
+            else
+            {
+                isPause = true;
+            }
+        }
+        if (!isGameOver && !isPause)
+        {
             respawn -= Time.deltaTime;
             if (respawn < 0)
             {
 
                 Instantiate(RandomGameObjectTrash(), new Vector2(Random.Range(-8, 8), 2), Quaternion.identity);
-                respawn = Random.Range(2, 6);
+                respawn = Random.Range(1, 3);
                 if (bonusTime > 0)
                 {
-                    respawn = respawn / 4;
+                    respawn = respawn / 3;
                 }
             }
-        }
-        if (hitStun > 0)
-        {
-            hitStun -= Time.deltaTime;
-        }
-        else if (isHitted)
-        {
-            player.GetComponent<PlayerController>().ReleaseDammage();
-            isHitted = false;
-        }
-        if (bonusTime > 0)
-        {
-            bonusTime -= Time.deltaTime;
-        }
-        if (helmetTime > 0)
-        {
-            helmetTime -= Time.deltaTime;
-        }
-        else if (isHelmProtected)
-        {
-            helmet.SetActive(false);
-            isHelmProtected = false;
-        }
 
-        if (hyperStun > 0)
-        {
-            hyperStun -= Time.deltaTime;
+            if (time > 0)
+            {
+                time -= Time.deltaTime;
+            }
+            else
+            {
+                isGameOver = true;
+            }
+            if (hitStun > 0)
+            {
+                hitStun -= Time.deltaTime;
+            }
+            else if (isHitted)
+            {
+                player.GetComponent<PlayerController>().ReleaseDammage();
+                isHitted = false;
+            }
+            if (bonusTime > 0)
+            {
+                bonusTime -= Time.deltaTime;
+            }
+            if (helmetTime > 0)
+            {
+                helmetTime -= Time.deltaTime;
+            }
+            else if (isHelmProtected)
+            {
+                helmet.SetActive(false);
+                isHelmProtected = false;
+            }
+
+            if (hyperStun > 0)
+            {
+                hyperStun -= Time.deltaTime;
+            }
+            else if (isStunned)
+            {
+                player.SetActive(true);
+                player.GetComponent<PlayerController>().speed = 0;
+                isStunned = false;
+            }
         }
-        else if (isStunned)
+        else
         {
-            player.SetActive(true);
-            player.GetComponent<PlayerController>().speed = 0;
-            isStunned = false;
+            //show menu
+            gameMenu.SetActive(true);
         }
     }
 
@@ -206,10 +233,10 @@ public class GameManager : MonoBehaviour
         hyperStun = 10f;
         Instantiate(explosion, new Vector2(player.transform.localPosition.x, player.transform.localPosition.y), Quaternion.identity);
         source.PlayOneShot(explosionSound, 0.5f);
-        Instantiate(deadPlayer, new Vector3(player.transform.localPosition.x, player.transform.localPosition.y-1, 1), Quaternion.identity);
-
-        if (helmetTime <= 0.5f)
+       
+        if (helmetTime <= 0)
         {
+            Instantiate(deadPlayer, new Vector3(player.transform.localPosition.x, player.transform.localPosition.y - 1, 1), Quaternion.identity);
             player.SetActive(false);
             hyperStun = 10f;
             isStunned = true;
@@ -264,5 +291,16 @@ public class GameManager : MonoBehaviour
             trash = trashItems60persent[randomIndex];
         }
         return trash;
+    }
+
+    public void restartLevel()
+    {
+        time = 300;
+        SceneManager.LoadScene("LoadingScene");
+    }
+
+    public void mainMenu()
+    {
+        SceneManager.LoadScene("mainMenu");
     }
 }
