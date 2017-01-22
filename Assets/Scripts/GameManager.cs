@@ -303,4 +303,17 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene("mainMenu");
     }
+
+    public void showMenu()
+    {
+        if (isPause)
+        {
+            isPause = false;
+            gameMenu.SetActive(false);
+        }
+        else
+        {
+            isPause = true;
+        }
+    }
 }
