@@ -213,7 +213,7 @@ public class GameManager : MonoBehaviour
     {
         isHelmProtected = true;
         Debug.Log(helmetTime);
-        helmetTime += 5;
+        helmetTime += 20;
         helmet.SetActive(true);
         source.PlayOneShot(helmetSound, 1);
     }
